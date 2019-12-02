@@ -6,22 +6,30 @@
 {% if user.is_authenticated %}
   <h1>Hi {{ user.username }}!</h1>
 
-  <!-- <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <input type="file" name="document">
-    <button type="submit">Upload</button>
-  </form> -->
-
-  <form enctype="multipart/form-data" method="POST" action="">
+  <form enctype="multipart/form-data" method="POST" action="" style="margin-bottom:20px;">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" class="btn btn-primary" value="Upload"/>
   </form>
 
-  {% if url %}
-    <p>Uploaded file: <a href="{{ url }}">{{ url }}</a></p>
-  {% endif %}
-
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Caminho do arquivo</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for file in all_files %}
+        <tr>
+          <td>{{ file.name }}</td>
+          <td><a href="media/{{ file.filepath }}">{{ file.filepath }}</a></td>
+          <td><button id="{{ file.id }}" type="button" class="btn btn-danger">Deletar</button></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 {% else %}
   <meta http-equiv="refresh" content="0; url={% url 'login' %}" />
 {% endif %}
