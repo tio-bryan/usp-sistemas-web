@@ -6,10 +6,12 @@
 {% if user.is_authenticated %}
   <h1>Hi {{ user.username }}!</h1>
 
+  <button type="button" class="btn btn-primary" onclick="location.href='{% url 'logout' %}'" style="float:right;">Log Out</button>
+
   <form enctype="multipart/form-data" method="POST" action="" style="margin-bottom:20px;">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" class="btn btn-primary" value="Upload"/>
+    <input type="submit" class="btn btn-success" value="Upload"/>
   </form>
 
   <table class="table">
@@ -25,12 +27,14 @@
         <tr>
           <td>{{ file.name }}</td>
           <td><a href="media/{{ file.filepath }}">{{ file.filepath }}</a></td>
-          <td><button id="{{ file.id }}" type="button" class="btn btn-danger">Deletar</button></td>
+          <td><button type="button" class="btn btn-danger" onclick="location.href='/delete/{{ file.id }}'">Deletar</button></td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
+
 {% else %}
   <meta http-equiv="refresh" content="0; url={% url 'login' %}" />
 {% endif %}
+
 {% endblock %}

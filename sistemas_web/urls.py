@@ -11,6 +11,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     # path('', TemplateView.as_view(template_name='drive.html'), name='home'),
     path('', views.index),
+    path('delete/<int:id>', views.remove),
 ]
 
 if settings.DEBUG:

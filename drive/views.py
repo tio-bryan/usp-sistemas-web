@@ -15,5 +15,8 @@ def index(request):
       
     return render(request, 'drive.html', {'form': form, 'all_files': all_files})
 
-def remove(id):
-    File.objects.filter(id=request.user.id)
+def remove(request, id):
+    File.objects.filter(id=id).delete()
+    
+
+    return HttpResponseRedirect('/')
