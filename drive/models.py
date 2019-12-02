@@ -1,3 +1,7 @@
 from django.db import models
 
-# Create your models here.
+
+class File(models.Model):
+    name = models.CharField(max_length=500)
+    filepath = models.FileField(null=True, verbose_name="")
+    owner = models.CharField(max_length=500)
